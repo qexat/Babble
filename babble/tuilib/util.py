@@ -108,7 +108,8 @@ def keyhints_repr(**descriptions: str) -> str:
     return " \x1b[2m│\x1b[22m ".join(
         f"\x1b[1m{key}\x1b[22m: \x1b[95m{description}\x1b[39m"
         for key, description in merge_duplicate_hints(
-            descriptions, "\x1b[22m/\x1b[1m",
+            descriptions,
+            "\x1b[22m/\x1b[1m",
         ).items()
     )
 
