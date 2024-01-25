@@ -3,13 +3,14 @@ import argparse
 import os
 import typing
 
-from babble.app import App
-from babble.app import AppParams
+from babble.babble import BabbleContext
+from babble.babble import BabbleSettings
 from babble.builtins import themes
-from babble.util import emit_warning_pps_performance
-from babble.util import positive_int
-from babble.util import prompt_confirmation
-from babble.util import should_warn_pps_performance
+from babble.tuilib.app import App
+from babble.tuilib.util import emit_warning_pps_performance
+from babble.tuilib.util import positive_int
+from babble.tuilib.util import prompt_confirmation
+from babble.tuilib.util import should_warn_pps_performance
 
 
 class BabbleNamespace(typing.Protocol):
@@ -36,20 +37,19 @@ def parse_args() -> BabbleNamespace:
 
 def main() -> int:
     namespace = parse_args()
-    app_params: AppParams = {
-        "is_randomizing": namespace.randomize_at_launch,
-        "immersive": namespace.immersive,
+
+    context_settings: BabbleSettings = {
         "pixels_per_step": namespace.pixels_per_step,
         "theme": themes.get_unchecked(namespace.theme),
     }
 
-    if should_warn_pps_performance(app_params["pixels_per_step"]):
-        emit_warning_pps_performance(app_params["pixels_per_step"])
+    if should_warn_pps_performance(context_settings["pixels_per_step"]):
+        emit_warning_pps_performance(context_settings["pixels_per_step"])
 
         if not prompt_confirmation():
             return os.EX_DATAERR
 
-    with App("Babble", **app_params) as app:
-        app.run()
+    with App("Babble", BabbleContext, immersive=namespace.immersive) as app:
+        app.run(context_settings)
 
     return os.EX_OK

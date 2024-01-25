@@ -2,12 +2,13 @@ import collections.abc
 import dataclasses
 import typing
 
-from babble.window import Coordinates
-from babble.window import RGBColor
+from babble.tuilib.window import Coordinates
+from babble.tuilib.window import RGBColor
 
 
 ChannelFunction: typing.TypeAlias = collections.abc.Callable[
-    [Coordinates, int, int], int,
+    [Coordinates, int, int],
+    int,
 ]
 
 
