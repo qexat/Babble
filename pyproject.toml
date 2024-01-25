@@ -1,6 +1,6 @@
 [project]
 name = "Babble"
-version = "1.0.0"
+version = "1.1.0"
 description = "A pretty visual noise generator TUI application."
 keywords = ["noise", "noise generation", "terminal", "terminal application"]
 authors = [{ name = "Qexat", email = "contact@qexat.com" }]
