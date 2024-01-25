@@ -4,7 +4,7 @@
 
 **Babble** is a pretty visual noise generator TUI application.
 
-![Screenshot of the interface of Babble.](./img/screenshot.png)
+![Screenshot of the interface of Babble.](./img/babble.png)
 
 ## What is its purpose?
 
@@ -84,6 +84,40 @@ Some of **Babble**'s behavior can be configured.
 - `--immersive`: (default: `False`) activates the immersive mode by default.
 - `--pixels-per-step`: (default: `1000`) changes the number of pixels generated at each step (e.g. when pressing `Enter`)
 - `--theme`: (default `babble`) sets the context theme to be one of the built-in ones.
+
+## Themes
+
+Here is a list of the built-in themes.
+
+To set a theme, specify the `--theme` argument in the command line, for example:
+
+```sh
+babble --theme plasma
+```
+
+### Babble (default)
+
+A nice 2D gradient from red to blue through magenta.
+
+![Screenshot of the interface of Babble with the default theme.](./img/babble.png)
+
+## Plasma
+
+Every _pixel_ is of completely random color.
+
+![Screenshot of the interface of Babble with the Plasma theme.](./img/plasma.png)
+
+## Radioactive
+
+`babble`, but in a different orientation and with some green noise overlay.
+
+![Screenshot of the interface of Babble with the Radioactive theme.](./img/radioactive.png)
+
+## Monochrome
+
+A simple left-to-right black-to-white gradient.
+
+![Screenshot of the interface of Babble with the Monochrome theme.](./img/monochrome.png)
 
 ---
 
