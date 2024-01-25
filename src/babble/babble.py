@@ -4,7 +4,6 @@ import random
 import typing
 
 import coquille.sequences
-
 from babble.tuilib.context import Context
 from babble.tuilib.context import ContextSignal
 from babble.tuilib.themes import Theme

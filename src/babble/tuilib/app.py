@@ -5,7 +5,6 @@ import typing
 
 import coquille.sequences
 import outspin
-
 from babble.tuilib.context import Context
 from babble.tuilib.context import ContextSettingsT
 from babble.tuilib.context import ContextSignal
