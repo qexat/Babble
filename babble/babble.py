@@ -43,7 +43,7 @@ class BabbleContext(Context[BabbleSettings]):
             enter="add noise",
             space="random fill",
             s="sort",
-            r="randomize",
+            r="shuffle",
             e="erase",
             q="quit",
             **self.global_keyhints,
