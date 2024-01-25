@@ -81,7 +81,8 @@ def should_warn_pps_performance(pixels_per_step: int) -> bool:
 def emit_warning_pps_performance(pixels_per_step: int) -> None:
     print(
         f"\x1b[1;33mWARNING:\x1b[22;39m \x1b[1;96m{pixels_per_step:,}\x1b[22;39m is higher than the "
-        f"recommended max pixels-per-step value of \x1b[1;96m{UPPER_LIMIT_PIXELS_PER_STEP:,}\x1b[22;39m.",
+        f"recommended max pixels-per-step value of \x1b[1;96m{UPPER_LIMIT_PIXELS_PER_STEP:,}\x1b[22;39m. "
+        "\x1b[33mIt might impact performance.\x1b[39m",
         file=sys.stderr,
     )
 
