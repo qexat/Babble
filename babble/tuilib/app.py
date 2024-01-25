@@ -129,6 +129,14 @@ class App(typing.Generic[ContextSettingsT]):
         self.draw_windows(width, height)
         self.draw_header()
 
+    def refresh(self, context: Context[ContextSettingsT]) -> None:
+        """
+        Refresh the app interface (clear and re-draw).
+        """
+
+        coquille.apply(coquille.sequences.erase_in_display(2))
+        self.draw(context)
+
     def listen_key(self, context: Context[ContextSettingsT]) -> None:
         """
         Listen for a pressed key and act accordingly.
@@ -137,15 +145,11 @@ class App(typing.Generic[ContextSettingsT]):
         match outspin.get_key():
             case "esc":
                 self.is_requesting_exit = True
-                return
             case "shift+f5":
-                coquille.apply(coquille.sequences.erase_in_display(2))
-                self.draw(context)
-                return
+                self.refresh(context)
             case "i":
                 self.immersive = not self.immersive
                 coquille.apply(coquille.sequences.erase_in_display(2))
-                return
             case key:
                 channel = context.receive_key(key)
 
