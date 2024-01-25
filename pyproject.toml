@@ -1,0 +1,20 @@
+[project]
+name = "Babble"
+version = "1.0.0"
+description = "A pretty visual noise generator TUI application."
+keywords = ["noise", "noise generation", "terminal", "terminal application"]
+authors = [{ name = "Qexat", email = "contact@qexat.com" }]
+license = { file = "LICENSE" }
+readme = "README.md"
+
+requires-python = ">=3.11"
+dependencies = ["coquille==1.3.0", "outspin==0.2.0"]
+
+[project.optional-dependencies]
+dev = ["pre-commit==3.6.0"]
+
+[project.urls]
+repository = "https://github.com/qexat/babble"
+
+[project.scripts]
+babble = "babble.__main__:main"
