@@ -4,6 +4,8 @@
 
 **Babble** is a pretty visual noise generator TUI application.
 
+![Screenshot of the interface of Babble.](./img/screenshot.png)
+
 ## What is its purpose?
 
 To be fair, none. It's more like a fun project and a proof of concept of combining [`coquille`](https://pypi.org/project/coquille) and [`outspin`](https://pypi.org/project/outspin).
