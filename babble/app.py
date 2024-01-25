@@ -26,6 +26,7 @@ KEYS_HINT = make_keys_hint(
     s="sort",
     r="randomize",
     e="erase",
+    f="force refresh",
     i="switch immersive",
     q="quit",
 )
@@ -113,6 +114,20 @@ class App:
         if not self.immersive:
             offset_write(message, x=2, y=height - 2)
 
+    def draw(self) -> None:
+        """
+        Draw the app interface.
+        """
+
+        # We refresh the terminal size at every iteration
+        width, height = shutil.get_terminal_size()
+
+        # We draw bottom to top, this order is mandatory due to the
+        # way it is done (it prints over previous lines)
+        self.draw_statusbar(height)
+        self.draw_windows(width, height)
+        self.draw_header()
+
     def listen_user(self, window: Window) -> None:
         """
         Listen for a pressed key and act accordingly.
@@ -133,6 +148,9 @@ class App:
             case "i":
                 self.immersive = not self.immersive
                 coquille.apply(coquille.sequences.erase_in_display(2))
+            case "f":
+                coquille.apply(coquille.sequences.erase_in_display(2))
+                self.draw()
             case "q" | "esc":
                 self.is_requesting_exit = True
             case _:
@@ -152,15 +170,8 @@ class App:
         self.renderer.register(Coordinates(0, 0), window)
 
         while True:
-            # We refresh the terminal size at every iteration
-            width, height = shutil.get_terminal_size()
-
             try:
-                # We draw bottom to top, this order is mandatory due to the
-                # way it is done (it prints over previous lines)
-                self.draw_statusbar(height)
-                self.draw_windows(width, height)
-                self.draw_header()
+                self.draw()
 
                 if self.is_randomizing:  # i.e. we pressed space earlier
                     add_random_noise(window, self.pixels_per_step, self.theme)

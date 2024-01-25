@@ -21,6 +21,7 @@ A huge empty space is left in the center: this is where the _window_ that you wi
 - Pressing `s` does the opposite of `r`: it sorts the _pixels_ in a certain way.
 - Press `e` to clean the _window_.
 - `i` enters the _immersive mode_, which simply hides the _header_ and the _status bar_. Pressing it again exits that mode.
+- Press `f` if you need to force refreshing the interface, for example if your terminal size has changed.
 - Finally, you can press `q` to quit **Babble**. Alternatively, you can also use `esc`.
 
 > [!IMPORTANT]
