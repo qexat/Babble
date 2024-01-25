@@ -31,7 +31,7 @@ def main() -> int:
         "pixels_per_step": namespace.pixels_per_step,
     }
 
-    with App("NoisyTerm", **app_params) as app:
+    with App("Babble", **app_params) as app:
         app.run()
 
     return os.EX_OK
