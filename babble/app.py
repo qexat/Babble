@@ -1,18 +1,16 @@
 # pyright: reportMissingTypeStubs = false
 import dataclasses
-import random
 import shutil
 import typing
 
 import coquille.sequences
 import outspin
 
-from babble.builtins import themes
-from babble.funcs import add_random_noise
+from babble.context import Context
+from babble.context import ContextSettingsT
+from babble.context import ContextSignal
 from babble.renderer import WindowRenderer
-from babble.themes import Theme
-from babble.util import is_fully_filled
-from babble.util import make_keys_hint
+from babble.util import keyhints_repr
 from babble.util import offset_write
 from babble.window import Coordinates
 from babble.window import Window
@@ -20,16 +18,21 @@ from babble.window import Window
 
 PIXELS_PER_STEP_DEFAULT = 1000
 
-KEYS_HINT = make_keys_hint(
+KEYHINTS = keyhints_repr(
     enter="add noise",
     space="random fill",
     s="sort",
     r="randomize",
     e="erase",
-    f="force refresh",
     i="switch immersive",
     q="quit",
+    **{"shift+f5": "force refresh"},
 )
+GLOBAL_KEYHINTS = {
+    "esc": "quit",
+    "shift+f5": "force refresh",
+    "i": "switch immersive",
+}
 FILLING_HINT = (
     "\x1b[35mFilling, please wait...\x1b[39m \x1b[2m(Ctrl+C to interrupt)\x1b[22m"
 )
@@ -38,18 +41,16 @@ CONTEXT_MARGIN = 5
 
 
 @dataclasses.dataclass(slots=True)
-class App:
+class App(typing.Generic[ContextSettingsT]):
     """
     TUI-based application.
     """
 
     name: str
+    context_factory: type[Context[ContextSettingsT]]
     renderer: WindowRenderer = dataclasses.field(default_factory=WindowRenderer)
 
-    is_randomizing: bool = dataclasses.field(default=False)
     immersive: bool = dataclasses.field(default=False)
-    pixels_per_step: int = dataclasses.field(default=PIXELS_PER_STEP_DEFAULT)
-    theme: Theme = dataclasses.field(default=themes.BABBLE)
 
     is_requesting_exit: bool = dataclasses.field(init=False, default=False)
 
@@ -101,7 +102,7 @@ class App:
         offset_write(rendering, x=2, y=2)
         coquille.apply(coquille.sequences.default_background_color)
 
-    def draw_statusbar(self, height: int) -> None:
+    def draw_statusbar(self, context: Context[ContextSettingsT], height: int) -> None:
         """
         Draw the application status bar in the terminal.
 
@@ -109,12 +110,12 @@ class App:
         """
 
         message = coquille.sequences.erase_in_line(2)
-        message += FILLING_HINT if self.is_randomizing else KEYS_HINT
+        message += context.status_message
 
         if not self.immersive:
             offset_write(message, x=2, y=height - 2)
 
-    def draw(self) -> None:
+    def draw(self, context: Context[ContextSettingsT]) -> None:
         """
         Draw the app interface.
         """
@@ -124,40 +125,42 @@ class App:
 
         # We draw bottom to top, this order is mandatory due to the
         # way it is done (it prints over previous lines)
-        self.draw_statusbar(height)
+        self.draw_statusbar(context, height)
         self.draw_windows(width, height)
         self.draw_header()
 
-    def listen_user(self, window: Window) -> None:
+    def listen_key(self, context: Context[ContextSettingsT]) -> None:
         """
         Listen for a pressed key and act accordingly.
         """
 
         match outspin.get_key():
-            case "space":
-                if not is_fully_filled(window):
-                    self.is_randomizing = True
-            case "enter":
-                add_random_noise(window, self.pixels_per_step, self.theme)
-            case "e":
-                window.reset()
-            case "r":
-                random.shuffle(window.pixels)
-            case "s":
-                window.pixels.sort()
+            case "esc":
+                self.is_requesting_exit = True
+                return
+            case "shift+f5":
+                coquille.apply(coquille.sequences.erase_in_display(2))
+                self.draw(context)
+                return
             case "i":
                 self.immersive = not self.immersive
                 coquille.apply(coquille.sequences.erase_in_display(2))
-            case "f":
-                coquille.apply(coquille.sequences.erase_in_display(2))
-                self.draw()
-            case "q" | "esc":
-                self.is_requesting_exit = True
-            case _:
-                # If the key pressed is not recognized, we simply ignore it.
-                pass
+                return
+            case key:
+                channel = context.receive_key(key)
 
-    def run(self) -> None:
+                # We let the Context run while it is blocking
+                while (signal := next(channel)) is ContextSignal.BLOCK:
+                    # We still draw in case of updates
+                    self.draw(context)
+
+                match signal:
+                    case ContextSignal.ABORT:
+                        self.is_requesting_exit = True
+                    case ContextSignal.LISTEN:
+                        return
+
+    def run(self, settings: ContextSettingsT) -> None:
         """
         Run the app.
         """
@@ -169,32 +172,14 @@ class App:
         window = Window.empty(window_width, window_height)
         self.renderer.register(Coordinates(0, 0), window)
 
+        context = self.context_factory(window, settings, GLOBAL_KEYHINTS)
+
         while True:
-            try:
-                self.draw()
-
-                if self.is_randomizing:  # i.e. we pressed space earlier
-                    add_random_noise(window, self.pixels_per_step, self.theme)
-
-                    if is_fully_filled(window):
-                        self.is_randomizing = False
-                else:
-                    self.listen_user(window)
-            except KeyboardInterrupt:
-                # Interrupting might not reset the background color
-                coquille.apply(coquille.sequences.default_background_color)
-
-                self.is_randomizing = False
+            self.draw(context)
+            self.listen_key(context)
 
             if self.is_requesting_exit:
                 # we don't use `return` because that's basically the same
                 # thing in this context, but `break` allows us to add some
                 # "at exit" stuff later if needed
                 break
-
-
-class AppParams(typing.TypedDict):
-    is_randomizing: bool
-    immersive: bool
-    pixels_per_step: int
-    theme: Theme
