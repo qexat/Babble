@@ -31,8 +31,6 @@ A huge empty space is left in the center: this is where the _window_ that you wi
 
 Once you have installed **Babble** locally, simply type `babble` in the terminal and press `Enter`.
 
-A nice interface will then be shown. Its employment is pretty straightforward, reading the hints printed at the bottom of your screen is probably enough to understand how to use it.
-
 ## Installation
 
 1. First, clone the repository and move to the directory:
