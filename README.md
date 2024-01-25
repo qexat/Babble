@@ -76,6 +76,14 @@ pip install .
 babble
 ```
 
+## Configuration
+
+Some of **Babble**'s behavior can be configured.
+
+- `--randomize-at-launch`: (default: `False`) pretends that you pressed `Space` at startup.
+- `--immersive`: (default: `False`) activates the immersive mode by default.
+- `--pixels-per-step`: (default: `1000`) changes the number of pixels generated at each step (e.g. when pressing `Enter`)
+
 ---
 
 I hope you like it ❤️
