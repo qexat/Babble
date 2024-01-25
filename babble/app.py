@@ -7,8 +7,10 @@ import typing
 import coquille.sequences
 import outspin
 
+from babble.builtins import themes
 from babble.funcs import add_random_noise
 from babble.renderer import WindowRenderer
+from babble.themes import Theme
 from babble.util import is_fully_filled
 from babble.util import make_keys_hint
 from babble.util import offset_write
@@ -45,8 +47,10 @@ class App:
 
     is_randomizing: bool = dataclasses.field(default=False)
     immersive: bool = dataclasses.field(default=False)
-    is_requesting_exit: bool = dataclasses.field(init=False, default=False)
     pixels_per_step: int = dataclasses.field(default=PIXELS_PER_STEP_DEFAULT)
+    theme: Theme = dataclasses.field(default=themes.BABBLE)
+
+    is_requesting_exit: bool = dataclasses.field(init=False, default=False)
 
     def __enter__(self) -> typing.Self:
         coquille.apply(coquille.sequences.enable_alternative_screen_buffer)
@@ -119,7 +123,7 @@ class App:
                 if not is_fully_filled(window):
                     self.is_randomizing = True
             case "enter":
-                add_random_noise(window, self.pixels_per_step)
+                add_random_noise(window, self.pixels_per_step, self.theme)
             case "e":
                 window.reset()
             case "r":
@@ -159,7 +163,7 @@ class App:
                 self.draw_header()
 
                 if self.is_randomizing:  # i.e. we pressed space earlier
-                    add_random_noise(window, self.pixels_per_step)
+                    add_random_noise(window, self.pixels_per_step, self.theme)
 
                     if is_fully_filled(window):
                         self.is_randomizing = False
@@ -182,3 +186,4 @@ class AppParams(typing.TypedDict):
     is_randomizing: bool
     immersive: bool
     pixels_per_step: int
+    theme: Theme
