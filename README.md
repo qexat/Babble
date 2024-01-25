@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD028-->
+
 # Babble
 
 **Babble** is a pretty visual noise generator TUI application.
@@ -12,20 +14,18 @@ After starting **Babble**, you should see two text elements: at the top is the _
 A huge empty space is left in the center: this is where the _window_ that you will fill up sits.
 
 - Press `Space` to randomly fill the _pixels_ until the window is crowded.
-
-  > [!IMPORTANT]
-  > You can interrupt the process by pressing `Ctrl` + `C`. The pixels already filled keep their state.
-
 - `Enter` is similar to `Space` but is like a "step": it only randomly fills a few _pixels_ and the process is done once.
 - Pressing `r` will shuffle the _pixels_ around. It does not fill any new one.
 - Pressing `s` does the opposite of `r`: it sorts the _pixels_ in a certain way.
-
-  > [!NOTE]
-  > The sorting algorithm will be configurable in the future.
-
 - Press `e` to clean the _window_.
 - `i` enters the _immersive mode_, which simply hides the _header_ and the _status bar_. Pressing it again exits that mode.
 - Finally, you can press `q` to quit **Babble**. Alternatively, you can also use `esc`.
+
+> [!IMPORTANT]
+> Space: You can interrupt the process by pressing `Ctrl` + `C`. The pixels already filled keep their state.
+
+> [!NOTE]
+> The sorting algorithm will be configurable in the future.
 
 ## How to run it?
 
