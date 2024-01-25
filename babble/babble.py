@@ -48,17 +48,19 @@ class BabbleContext(Context[BabbleSettings]):
             q="quit",
             **self.global_keyhints,
         )
+        self.default_status_message = self.status_message
 
     def receive_key(self, key: str) -> collections.abc.Iterator[ContextSignal]:
         match key:
             case "space":
                 if not self.is_fully_filled():
-                    previous_status = self.status_message
                     self.status_message = FILLING_HINT
                     yield ContextSignal.BLOCK
-                    yield from self.fill_random()
 
-                    self.status_message = previous_status
+                    try:
+                        yield from self.fill_random()
+                    finally:
+                        self.restore_status_message()
             case "enter":
                 self.add_random_noise()
             case "e":
