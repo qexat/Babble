@@ -1,10 +1,14 @@
+# pyright: reportUnusedCallResult = false
 import argparse
 import os
 import typing
 
 from babble.app import App
 from babble.app import AppParams
+from babble.util import emit_warning_pps_performance
 from babble.util import positive_int
+from babble.util import prompt_confirmation
+from babble.util import should_warn_pps_performance
 
 
 class BabbleNamespace(typing.Protocol):
@@ -30,6 +34,12 @@ def main() -> int:
         "immersive": namespace.immersive,
         "pixels_per_step": namespace.pixels_per_step,
     }
+
+    if should_warn_pps_performance(app_params["pixels_per_step"]):
+        emit_warning_pps_performance(app_params["pixels_per_step"])
+
+        if not prompt_confirmation():
+            return os.EX_DATAERR
 
     with App("Babble", **app_params) as app:
         app.run()
