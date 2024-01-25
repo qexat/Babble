@@ -13,7 +13,7 @@ def add_random_noise(window: Window, nb_pixels: int) -> None:
 
     i = 0
 
-    while i < 100:
+    while i < nb_pixels:
         coordinates = Coordinates.random(window.width, window.height)
         color = RGBColor(
             int(coordinates.x / window.width * 255),
