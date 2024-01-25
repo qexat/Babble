@@ -175,8 +175,11 @@ class App(typing.Generic[ContextSettingsT]):
         context = self.context_factory(window, settings, GLOBAL_KEYHINTS)
 
         while True:
-            self.draw(context)
-            self.listen_key(context)
+            try:
+                self.draw(context)
+                self.listen_key(context)
+            except KeyboardInterrupt:
+                pass
 
             if self.is_requesting_exit:
                 # we don't use `return` because that's basically the same

@@ -35,6 +35,10 @@ class Context(typing.Generic[ContextSettingsT], abc.ABC):
     global_keyhints: dict[str, str]
 
     status_message: str = dataclasses.field(init=False)
+    default_status_message: str = dataclasses.field(init=False)
+
+    def restore_status_message(self) -> None:
+        self.status_message = self.default_status_message
 
     @abc.abstractmethod
     def receive_key(self, key: str) -> collections.abc.Iterator[ContextSignal]:
