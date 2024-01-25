@@ -4,10 +4,10 @@ import collections.abc
 import dataclasses
 import typing
 
-from babble.window import Coordinates
-from babble.window import EMPTY_PIXEL
-from babble.window import RGBColor
-from babble.window import Window
+from babble.tuilib.window import Coordinates
+from babble.tuilib.window import EMPTY_PIXEL
+from babble.tuilib.window import RGBColor
+from babble.tuilib.window import Window
 
 _T = typing.TypeVar("_T")
 _U = typing.TypeVar("_U")
@@ -15,7 +15,8 @@ _U = typing.TypeVar("_U")
 
 PipelineResult: typing.TypeAlias = tuple[Coordinates, _T]
 PipelineFunction: typing.TypeAlias = collections.abc.Callable[
-    [Coordinates, _T, int, int], PipelineResult[_U],
+    [Coordinates, _T, int, int],
+    PipelineResult[_U],
 ]
 
 _EMPTY_PIXEL_RENDERING = "\x1b[49m "

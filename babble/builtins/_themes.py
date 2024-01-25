@@ -1,5 +1,5 @@
-from babble.themes import Theme
-from babble.window import RGBColor
+from babble.tuilib.themes import Theme
+from babble.tuilib.window import RGBColor
 
 
 class _Themes:

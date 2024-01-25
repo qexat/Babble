@@ -3,14 +3,14 @@ import argparse
 import os
 import typing
 
-from babble.app import App
 from babble.babble import BabbleContext
 from babble.babble import BabbleSettings
 from babble.builtins import themes
-from babble.util import emit_warning_pps_performance
-from babble.util import positive_int
-from babble.util import prompt_confirmation
-from babble.util import should_warn_pps_performance
+from babble.tuilib.app import App
+from babble.tuilib.util import emit_warning_pps_performance
+from babble.tuilib.util import positive_int
+from babble.tuilib.util import prompt_confirmation
+from babble.tuilib.util import should_warn_pps_performance
 
 
 class BabbleNamespace(typing.Protocol):

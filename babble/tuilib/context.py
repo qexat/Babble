@@ -4,7 +4,7 @@ import dataclasses
 import enum
 import typing
 
-from babble.window import Window
+from babble.tuilib.window import Window
 
 ContextSettingsT = typing.TypeVar("ContextSettingsT", bound=typing.TypedDict)
 

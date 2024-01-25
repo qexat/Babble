@@ -6,14 +6,14 @@ import typing
 import coquille.sequences
 import outspin
 
-from babble.context import Context
-from babble.context import ContextSettingsT
-from babble.context import ContextSignal
-from babble.renderer import WindowRenderer
-from babble.util import keyhints_repr
-from babble.util import offset_write
-from babble.window import Coordinates
-from babble.window import Window
+from babble.tuilib.context import Context
+from babble.tuilib.context import ContextSettingsT
+from babble.tuilib.context import ContextSignal
+from babble.tuilib.renderer import WindowRenderer
+from babble.tuilib.util import keyhints_repr
+from babble.tuilib.util import offset_write
+from babble.tuilib.window import Coordinates
+from babble.tuilib.window import Window
 
 
 PIXELS_PER_STEP_DEFAULT = 1000

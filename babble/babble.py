@@ -5,13 +5,13 @@ import typing
 
 import coquille.sequences
 
-from babble.context import Context
-from babble.context import ContextSignal
-from babble.themes import Theme
-from babble.util import keyhints_repr
-from babble.window import Coordinates
-from babble.window import EMPTY_PIXEL
-from babble.window import Window
+from babble.tuilib.context import Context
+from babble.tuilib.context import ContextSignal
+from babble.tuilib.themes import Theme
+from babble.tuilib.util import keyhints_repr
+from babble.tuilib.window import Coordinates
+from babble.tuilib.window import EMPTY_PIXEL
+from babble.tuilib.window import Window
 
 
 FILLING_HINT = (
