@@ -1,4 +1,4 @@
-from babble.tuilib.themes import Theme
+from babble.themes import Theme
 from babble.tuilib.window import RGBColor
 
 

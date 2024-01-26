@@ -4,9 +4,9 @@ import random
 import typing
 
 import coquille.sequences
+from babble.themes import Theme
 from babble.tuilib.context import Context
 from babble.tuilib.context import ContextSignal
-from babble.tuilib.themes import Theme
 from babble.tuilib.util import keyhints_repr
 from babble.tuilib.window import Coordinates
 from babble.tuilib.window import EMPTY_PIXEL
