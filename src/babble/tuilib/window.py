@@ -126,4 +126,4 @@ class Window:
             yield self.pixels[i * self.width : (i + 1) * self.width]
 
     def copy(self) -> typing.Self:
-        return self.__class__(self.width, self.height, self.pixels)
+        return self.__class__(self.width, self.height, self.pixels.copy())
