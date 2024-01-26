@@ -6,6 +6,8 @@ import typing
 from babble.babble import BabbleContext
 from babble.babble import BabbleSettings
 from babble.builtins import themes
+from babble.gol import DEFAULT_SETTINGS
+from babble.gol import GoLContext
 from babble.tuilib.app import App
 from babble.tuilib.util import emit_warning_pps_performance
 from babble.tuilib.util import positive_int
@@ -51,5 +53,12 @@ def main() -> int:
 
     with App("Babble", BabbleContext, immersive=namespace.immersive) as app:
         app.run(context_settings)
+
+    return os.EX_OK
+
+
+def main_gol() -> int:
+    with App("Game of Life", GoLContext) as app:
+        app.run(DEFAULT_SETTINGS)
 
     return os.EX_OK
