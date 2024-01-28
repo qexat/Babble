@@ -50,8 +50,8 @@ Once you have installed **Babble** locally, simply type `babble` in the terminal
    source .venv/bin/activate
    ```
 
-   > [!WARNING]
-   > If your shell is not `bash`, the activation script might have a slightly different name.
+> [!WARNING]
+> If your shell is not `bash`, the activation script might have a slightly different name.
 
 3. Install **Babble**:
 
