@@ -1,4 +1,4 @@
-<!-- markdownlint-disable MD028-->
+<!-- markdownlint-disable MD028, MD029 -->
 
 # Babble
 
@@ -15,20 +15,26 @@ To be fair, none. It's more like a fun project and a proof of concept of combini
 After starting **Babble**, you should see two text elements: at the top is the _header_ of the application, and at the bottom the _status bar_ with the keys and what they do when pressed.\
 A huge empty space is left in the center: this is where the _window_ that you will fill up sits.
 
-- Press `Space` to randomly fill the _pixels_ until the window is crowded.
-- `Enter` is similar to `Space` but is like a "step": it only randomly fills a few _pixels_ and the process is done once.
-- Pressing `r` will shuffle the _pixels_ around. It does not fill any new one.
-- Pressing `s` does the opposite of `r`: it sorts the _pixels_ in a certain way.
-- Press `e` to clean the _window_.
-- `i` enters the _immersive mode_, which simply hides the _header_ and the _status bar_. Pressing it again exits that mode.
-- Press `f` if you need to force refreshing the interface, for example if your terminal size has changed.
-- Finally, you can press `q` to quit **Babble**. Alternatively, you can also use `esc`.
+- Press `Enter` to fill 1'000 random pixels.
+
+> [!NOTE]
+> The number of pixels filled can be configured by setting the `--pixels-per-step` argument.
+
+- `Space` is similar to `Enter`, but does it multiple times until the whole window is crowded.
 
 > [!IMPORTANT]
-> Space: You can interrupt the process by pressing `Ctrl` + `C`. The pixels already filled keep their state.
+> You can interrupt the process by pressing `Ctrl` + `C`. The pixels already filled keep their state.
+
+- Pressing `r` will shuffle the _pixels_ around. It does not fill any new one.
+- Pressing `s` does the opposite of `r`: it sorts the _pixels_ in a certain way.
 
 > [!NOTE]
 > The sorting algorithm will be configurable in the future.
+
+- Press `e` to clean the _window_.
+- `i` enters the _immersive mode_, which simply hides the _header_ and the _status bar_. Pressing it again exits that mode.
+- Press `shift+f5` if you need to force refreshing the interface, for example if your terminal size has changed.
+- Finally, you can press `q` to quit **Babble**. Alternatively, you can also use `esc`.
 
 ## How to run it?
 
