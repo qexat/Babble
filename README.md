@@ -52,7 +52,7 @@ Once you have installed **Babble** locally, simply type `babble` in the terminal
 2. (Optional, but highly recommended) Create a virtual environment and activate it:
 
    ```sh
-   virtualenv .venv -ppython311
+   python -m venv .venv
    source .venv/bin/activate
    ```
 
@@ -78,7 +78,7 @@ All the commands above at once:
 
 ```sh
 git clone git@github.com:qexat/babble; cd babble
-virtualenv .venv -ppython311; source .venv/bin/activate
+python -m venv .venv; source .venv/bin/activate
 pip install .
 babble
 ```
